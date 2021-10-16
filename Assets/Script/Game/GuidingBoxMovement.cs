@@ -11,6 +11,7 @@ using DG.Tweening;
 /// </summary>
 public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
 {
+    #region Fields
     public MoveState CurrentState = MoveState.UP;
 
     [Header("Animation config")]
@@ -28,19 +29,22 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     private float _screenMinHeight;
 
     private ScreenManager _screenManager;
+    #endregion
 
+    #region Monobehavior functions
     private IEnumerator Start()
     {
         // Wait a second to remove freezes.
         yield return new WaitForSeconds(1);
 
         _screenManager = ScreenManager.Instance;
-        _spriteMask = GetComponent<SpriteMask>();
 
         CalculateMovePositions();
         MoveToTop();
     }
+    #endregion
 
+    #region Movement functions
     /// <summary>
     /// Calculate the top and bottom coordinate to which we will
     /// move the guiding box to.
@@ -52,6 +56,9 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
 
     }
 
+    /// <summary>
+    /// Moves the box to the top of the screen.
+    /// </summary>
     public void MoveToTop()
     {
         CurrentState = MoveState.UP;
@@ -62,6 +69,9 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
             .OnComplete(MoveToBot);
     }
 
+    /// <summary>
+    /// Moves the box to the bottom of the screen.
+    /// </summary>
     public void MoveToBot()
     {
         CurrentState = MoveState.HOLD;
@@ -72,6 +82,7 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
             .SetEase(_animationCurve)
             .OnComplete(MoveToTop);
     }
+    #endregion
 
     private void OnDrawGizmosSelected()
     {
