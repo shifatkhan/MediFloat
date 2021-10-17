@@ -7,7 +7,7 @@ using DG.Tweening;
 /// Continuously moves the gameobject up and down .
 /// 
 /// @author Shifat Khan
-/// @version 1.0.0
+/// @version 1.0.1
 /// </summary>
 public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
 {
@@ -15,20 +15,18 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     public MoveState CurrentState = MoveState.UP;
 
     [Header("Animation config")]
-    public float MoveTimeTop;
-    public float MoveTimeBot;
+    public float MoveTimeToTop;
+    public float MoveTimeToBot;
     public float DelayTop;
     public float DelayBot;
     [SerializeField] private AnimationCurve _animationCurve;
+    public AnimationCurve AnimationCurve => _animationCurve;
 
     [Header("Positions config")]
     [SerializeField] private float margin;
     [SerializeField] private SpriteMask _spriteMask;
 
-    private float _screenMaxHeight;
-    private float _screenMinHeight;
-
-    private ScreenManager _screenManager;
+    private GameManager _gameManager;
     #endregion
 
     #region Monobehavior functions
@@ -37,10 +35,14 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
         // Wait a second to remove freezes.
         yield return new WaitForSeconds(1);
 
-        _screenManager = ScreenManager.Instance;
+        _gameManager = GameManager.Instance;
+        _gameManager.ScreenChangeEvent.AddListener(CalculateMovePositions);
 
         CalculateMovePositions();
         MoveToTop();
+
+        // Let the game know that everything is ready to go.
+        _gameManager.StartGame();
     }
     #endregion
 
@@ -51,9 +53,15 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     /// </summary>
     private void CalculateMovePositions()
     {
-        _screenMaxHeight = _screenManager.TopLeftPoint.y - (_spriteMask.bounds.size.y / 2) - (margin / 2);
-        _screenMinHeight = _screenManager.BotLeftPoint.y + (_spriteMask.bounds.size.y / 2) + (margin / 2);
+        _gameManager.BoxTopPosition = new Vector3(
+            0f,
+            _gameManager.TopLeftPoint.y - (_spriteMask.bounds.size.y / 2) - (margin / 2),
+            0f);
 
+        _gameManager.BoxBotPosition = new Vector3(
+            0f,
+            _gameManager.BotLeftPoint.y + (_spriteMask.bounds.size.y / 2) + (margin / 2),
+            0f);
     }
 
     /// <summary>
@@ -63,7 +71,8 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     {
         CurrentState = MoveState.UP;
         transform
-            .DOMoveY(_screenMaxHeight, MoveTimeTop)
+            .DOMoveY(_gameManager.BoxTopPosition.y, MoveTimeToTop)
+            .SetUpdate(UpdateType.Fixed)
             .SetDelay(DelayTop)
             .SetEase(_animationCurve)
             .OnComplete(MoveToBot);
@@ -74,9 +83,10 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     /// </summary>
     public void MoveToBot()
     {
-        CurrentState = MoveState.HOLD;
+        CurrentState = MoveState.IDLE;
         transform
-            .DOMoveY(_screenMinHeight, MoveTimeBot)
+            .DOMoveY(_gameManager.BoxBotPosition.y, MoveTimeToBot)
+            .SetUpdate(UpdateType.Fixed)
             .SetDelay(DelayBot)
             .OnStart(() => { CurrentState = MoveState.DOWN; })
             .SetEase(_animationCurve)
@@ -89,11 +99,4 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, new Vector3(_spriteMask.bounds.size.x + margin, _spriteMask.bounds.size.y + margin, 0f));
     }
-}
-
-public enum MoveState
-{
-    UP,
-    DOWN,
-    HOLD
 }

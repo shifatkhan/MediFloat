@@ -11,7 +11,7 @@ using UnityEngine;
 public class BackgroundScaler : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
-    private ScreenManager _screenManager;
+    private GameManager _gameManager;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class BackgroundScaler : MonoBehaviour
 
     private void Start()
     {
-        _screenManager = ScreenManager.Instance;
+        _gameManager = GameManager.Instance;
 
         ResizeToFullscreen();
     }
@@ -32,6 +32,6 @@ public class BackgroundScaler : MonoBehaviour
         float unitHeight = s.textureRect.height / s.pixelsPerUnit;
 
         _spriteRenderer.transform.localScale = 
-            new Vector3(_screenManager.ScreenWidth / unitWidth, _screenManager.ScreenHeight / unitHeight, 0f);
+            new Vector3(_gameManager.ScreenWidth / unitWidth, _gameManager.ScreenHeight / unitHeight, 0f);
     }
 }
