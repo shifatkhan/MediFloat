@@ -40,7 +40,7 @@ public class GameManager : Singleton<GameManager>
 
     [HideInInspector] public UnityEvent GameStartedEvent;
     [HideInInspector] public UnityEvent GamePausedEvent;
-    [HideInInspector] public UnityEvent ScreenChangeEvent;
+    [HideInInspector] public UnityEvent RecalculateScreenEvent;
     #endregion
 
     protected override void Awake()
@@ -74,6 +74,6 @@ public class GameManager : Singleton<GameManager>
         _botLeftPoint = camera.ViewportToWorldPoint(new Vector3(0f, 0f, 0f));
         _botRightPoint = camera.ViewportToWorldPoint(new Vector3(1f, 0f, 0f));
 
-        ScreenChangeEvent.Invoke();
+        RecalculateScreenEvent.Invoke();
     }
 }

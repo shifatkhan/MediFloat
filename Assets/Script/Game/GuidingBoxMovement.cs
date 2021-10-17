@@ -26,6 +26,9 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     [SerializeField] private float margin;
     [SerializeField] private SpriteMask _spriteMask;
 
+    private Tween _moveToTop;
+    private Tween _moveToBot;
+
     private GameManager _gameManager;
     #endregion
 
@@ -36,9 +39,9 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
         yield return new WaitForSeconds(1);
 
         _gameManager = GameManager.Instance;
-        _gameManager.ScreenChangeEvent.AddListener(CalculateMovePositions);
+        _gameManager.RecalculateScreenEvent.AddListener(RecalculateMovePositions);
 
-        CalculateMovePositions();
+        RecalculateMovePositions();
         MoveToTop();
 
         // Let the game know that everything is ready to go.
@@ -51,7 +54,7 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     /// Calculate the top and bottom coordinate to which we will
     /// move the guiding box to.
     /// </summary>
-    private void CalculateMovePositions()
+    private void RecalculateMovePositions()
     {
         _gameManager.BoxTopPosition = new Vector3(
             0f,
@@ -62,6 +65,28 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
             0f,
             _gameManager.BotLeftPoint.y + (_spriteMask.bounds.size.y / 2) + (margin / 2),
             0f);
+
+        _moveToTop = transform
+            .DOMoveY(_gameManager.BoxTopPosition.y, MoveTimeToTop)
+            .SetUpdate(UpdateType.Fixed)
+            .SetDelay(DelayTop)
+            .SetEase(_animationCurve)
+            .OnComplete(MoveToBot)
+            .SetAutoKill(false);
+        _moveToTop.Pause();
+
+        _moveToBot = transform
+            .DOMoveY(_gameManager.BoxBotPosition.y, MoveTimeToBot)
+            .SetUpdate(UpdateType.Fixed)
+            .SetDelay(DelayBot)
+            .OnStart(() => { CurrentState = MoveState.DOWN; })
+            .SetEase(_animationCurve)
+            .OnComplete(MoveToTop)
+            .SetAutoKill(false);
+        _moveToBot.Pause();
+
+        // Set the start position to be at the botttom.
+        transform.position = _gameManager.BoxBotPosition;
     }
 
     /// <summary>
@@ -70,12 +95,7 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     public void MoveToTop()
     {
         CurrentState = MoveState.UP;
-        transform
-            .DOMoveY(_gameManager.BoxTopPosition.y, MoveTimeToTop)
-            .SetUpdate(UpdateType.Fixed)
-            .SetDelay(DelayTop)
-            .SetEase(_animationCurve)
-            .OnComplete(MoveToBot);
+        _moveToTop.Restart();
     }
 
     /// <summary>
@@ -84,13 +104,7 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     public void MoveToBot()
     {
         CurrentState = MoveState.IDLE;
-        transform
-            .DOMoveY(_gameManager.BoxBotPosition.y, MoveTimeToBot)
-            .SetUpdate(UpdateType.Fixed)
-            .SetDelay(DelayBot)
-            .OnStart(() => { CurrentState = MoveState.DOWN; })
-            .SetEase(_animationCurve)
-            .OnComplete(MoveToTop);
+        _moveToBot.Restart();
     }
     #endregion
 
