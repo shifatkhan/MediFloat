@@ -23,17 +23,10 @@ public class FeatherMovement : MonoBehaviour
     private GuidingBoxMovement _guidingBox;
     private GameManager _gameManager;
 
-    private IEnumerator Start()
+    private void Start()
     {
         _gameManager = GameManager.Instance;
-        _gameManager.GameStartedEvent.AddListener(Initialize);
-
         _guidingBox = GuidingBoxMovement.Instance;
-
-        while (_gameManager.GameState != GameState.STARTED)
-            yield return null;
-
-        Initialize();
     }
 
     private void Update()
@@ -46,18 +39,6 @@ public class FeatherMovement : MonoBehaviour
         {
             MoveToBot();
         }
-    }
-
-    /// <summary>
-    /// Initializes any variables needed.
-    /// </summary>
-    private void Initialize()
-    {
-        if (CurrentState != MoveState.IDLE)
-            return;
-
-        // Set the start position to be at the botttom.
-        transform.position = _gameManager.BoxBotPosition;
     }
 
     /// <summary>
