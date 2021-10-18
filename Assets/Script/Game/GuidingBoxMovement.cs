@@ -7,7 +7,7 @@ using DG.Tweening;
 /// Continuously moves the gameobject up and down .
 /// 
 /// @author Shifat Khan
-/// @version 1.0.1
+/// @version 1.0.2
 /// </summary>
 public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
 {

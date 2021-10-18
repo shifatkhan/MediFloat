@@ -6,39 +6,22 @@ using DG.Tweening;
 /// <summary>
 /// Handles player input to make the feather go up and down.
 /// 
+/// TODO: Code here is a duplicate of what is found in <see cref="GuidingBoxMovement"/>. Maybe make them both inherit from 1 class.
+/// 
 /// @author Shifat Khan
-/// @version 1.0.0
+/// @version 1.0.1
 /// </summary>
 public class FeatherMovement : MonoBehaviour
 {
     public MoveState CurrentState = MoveState.IDLE;
 
-    [Header("Speed")]
-    [Tooltip("Force to push the feather up.")]
-    [SerializeField] private float _force;
+    [SerializeField] private float _speedMultiplier = 1f;
 
-    [Tooltip("Adjust the max velocity to your liking.")]
-    [SerializeField] private float _maxVelocityMultiplier = 1f;
-
-    private float _maxVelocityUp;
-    private float _maxVelocityDown;
-
-    [Header("Easing")]
-    [Tooltip("Easing variables to make the feather switch up and down smoothly.")]
-    [SerializeField] private float _easeStepperUp = 0.1f;
-    [SerializeField] private float _easeStepperDown = 0.1f;
-    private float _easingValue = 0f;
-
-
-    private Rigidbody2D _rigidBody;
+    private Tween _moveToTop;
+    private Tween _moveToBot;
 
     private GuidingBoxMovement _guidingBox;
     private GameManager _gameManager;
-
-    private void Awake()
-    {
-        _rigidBody = GetComponent<Rigidbody2D>();
-    }
 
     private IEnumerator Start()
     {
@@ -57,44 +40,60 @@ public class FeatherMovement : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            // Holding press.
-            Debug.Log("HOLDING");
-            _easingValue += _easeStepperUp;
-            CurrentState = MoveState.UP;
+            MoveToTop();
         }
         else
         {
-            _easingValue -= _easeStepperDown;
-            CurrentState = CurrentState == MoveState.IDLE ? MoveState.IDLE : MoveState.DOWN;
+            MoveToBot();
         }
-
-        _easingValue = Mathf.Clamp01(_easingValue);
-    }
-
-    private void FixedUpdate()
-    {
-        // Move the feather upwards.
-        _rigidBody.AddForce(Vector2.up * _force * _easingValue);
-
-        // Limit the velocity to the guiding box's speed.
-        _rigidBody.velocity = Vector2.ClampMagnitude(
-            _rigidBody.velocity,
-            CurrentState == MoveState.UP ? _maxVelocityUp : _maxVelocityDown
-            );
     }
 
     /// <summary>
-    /// Initializes any variables when the game is ready.
+    /// Initializes any variables needed.
     /// </summary>
-    public void Initialize()
+    private void Initialize()
     {
         if (CurrentState != MoveState.IDLE)
             return;
 
-        // Calculate max velocity with v = (x2 - x1) / (t2 - t1)
-        var height = Vector2.Distance(_gameManager.BoxTopPosition, _gameManager.BoxBotPosition);
+        // Set the start position to be at the botttom.
+        transform.position = _gameManager.BoxBotPosition;
+    }
 
-        _maxVelocityUp = (height / _guidingBox.MoveTimeToTop) * _maxVelocityMultiplier;
-        _maxVelocityDown = (height / _guidingBox.MoveTimeToBot) * _maxVelocityMultiplier;
+    /// <summary>
+    /// Moves the feather towards the top of the screen.
+    /// </summary>
+    public void MoveToTop()
+    {
+        if (CurrentState == MoveState.UP)
+            return;
+
+        _moveToBot?.Pause();
+
+        CurrentState = MoveState.UP;
+        _moveToTop = transform
+            .DOMoveY(_gameManager.BoxTopPosition.y, _guidingBox.MoveTimeToTop / _speedMultiplier)
+            .SetUpdate(UpdateType.Fixed)
+            .SetEase(_guidingBox.AnimationCurve)
+            .SetAutoKill(false)
+            .SetRecyclable(true);
+    }
+
+    /// <summary>
+    /// Moves the feather towards the bottom of the screen.
+    /// </summary>
+    public void MoveToBot()
+    {
+        if (CurrentState == MoveState.DOWN)
+            return;
+
+        _moveToTop?.Pause();
+
+        CurrentState = MoveState.DOWN;
+        _moveToBot = transform
+            .DOMoveY(_gameManager.BoxBotPosition.y, _guidingBox.MoveTimeToBot / _speedMultiplier)
+            .SetUpdate(UpdateType.Fixed)
+            .SetEase(_guidingBox.AnimationCurve)
+            .SetRecyclable(true);
     }
 }
