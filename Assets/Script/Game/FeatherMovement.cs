@@ -21,17 +21,19 @@ public class FeatherMovement : MonoBehaviour
     private Tween _moveToBot;
 
     private GuidingBoxMovement _guidingBox;
+    private InputManager _inputManager;
     private GameManager _gameManager;
 
     private void Start()
     {
-        _gameManager = GameManager.Instance;
         _guidingBox = GuidingBoxMovement.Instance;
+        _inputManager = InputManager.Instance;
+        _gameManager = GameManager.Instance;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (_inputManager.MouseButton0)
         {
             MoveToTop();
         }
