@@ -96,7 +96,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentState: 0
-  _maxSpeedUp: 5
-  _maxSpeedDown: 2
-  _acceleration: 15
-  _deceleration: 20
+  _maxSpeedUp: 100
+  _maxSpeedDown: 1
+  _acceleration: 20
+  _deceleration: 50
+  _transitionTime: 0.2
+  _stretchedScale: {x: 0.15, y: 2, z: 0}

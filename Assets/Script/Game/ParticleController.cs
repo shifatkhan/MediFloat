@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pooler;
 
 /// <summary>
 /// Controls the mechanism of a singular partical based on
@@ -9,7 +10,7 @@ using UnityEngine;
 /// @author Shifat Khan
 /// @version 1.0.0
 /// </summary>
-public class ParticleController : MonoBehaviour
+public class ParticleController : MonoBehaviour, IPooledObject
 {
     #region Fields
     public MoveState CurrentState = MoveState.UP;
@@ -17,14 +18,23 @@ public class ParticleController : MonoBehaviour
     private float _currentSpeed = 0;
     public float CurrentSpeed => _currentSpeed;
 
+    [Header("Movement config")]
     [Tooltip("This is the maximum speed when moving UP.")]
-    [SerializeField] private float _maxSpeedUp = 10;
+    [SerializeField] private float _maxSpeedUp = 10f;
     [Tooltip("This is the maximum speed when moving DOWN.")]
-    [SerializeField] private float _maxSpeedDown = 10;
+    [SerializeField] private float _maxSpeedDown = 10f;
     [Tooltip("How fast will object reach a maximum speed.")]
-    [SerializeField] private float _acceleration = 10;
+    [SerializeField] private float _acceleration = 10f;
     [Tooltip("How fast will object reach a speed of 0.")]
-    [SerializeField] private float _deceleration = 10;
+    [SerializeField] private float _deceleration = 10f;
+
+    [Header("Animation config")]
+    [Tooltip("Time it takes to expand and shrink the particle.")]
+    [SerializeField] private float _transitionTime = 1f;
+    [Tooltip("Scale when partical is moving up.")]
+    [SerializeField] private Vector3 _stretchedScale;
+    private Vector3 _initialScale;
+    private float _timeElapsed = 0;
 
     private InputManager _inputManager;
     #endregion
@@ -52,10 +62,12 @@ public class ParticleController : MonoBehaviour
         if (CurrentState == MoveState.UP && _currentSpeed < _maxSpeedUp)
         {
             MoveUp();
+            MoveUpAnimation();
         }
         else
         {
             MoveDown();
+            MoveDownAnimation();
         }
         
         var newPosition = transform.position;
@@ -80,6 +92,25 @@ public class ParticleController : MonoBehaviour
         {
             _currentSpeed -= _deceleration * Time.fixedDeltaTime;
         }
+    }
+
+    private void MoveUpAnimation()
+    {
+        _timeElapsed += Time.deltaTime / _transitionTime;
+        _timeElapsed = Mathf.Clamp01(_timeElapsed);
+        transform.localScale = Vector3.Lerp(_initialScale, _stretchedScale, _timeElapsed);
+    }
+
+    private void MoveDownAnimation()
+    {
+        _timeElapsed -= Time.deltaTime / _transitionTime;
+        _timeElapsed = Mathf.Clamp01(_timeElapsed);
+        transform.localScale = Vector3.Lerp(_initialScale, _stretchedScale, _timeElapsed);
+    }
+
+    public void OnObjectSpawned()
+    {
+        _initialScale = transform.localScale;
     }
     #endregion
 }
