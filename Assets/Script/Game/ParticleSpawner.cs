@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Spawns particles on the bottom of the screen.
 /// 
-/// @author Shifat Khan
+/// @author Shifat Khan.
 /// </summary>
 public class ParticleSpawner : MonoBehaviour
 {
