@@ -21,8 +21,18 @@ public class BackgroundScaler : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.Instance;
+        _gameManager.GameStartedEvent.AddListener(ResizeOnStart);
+    }
 
+    private void ResizeOnStart()
+    {
         ResizeToFullscreen();
+        _gameManager.RecalculateScreenEvent.AddListener(ResizeToFullscreen);
+    }
+
+    private void OnDestroy()
+    {
+        _gameManager.GameStartedEvent.RemoveListener(ResizeOnStart);
     }
 
     public void ResizeToFullscreen()

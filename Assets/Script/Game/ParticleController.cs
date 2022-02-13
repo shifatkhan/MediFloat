@@ -34,6 +34,18 @@ public class ParticleController : MonoBehaviour, IPooledObject
     [Tooltip("Scale when partical is moving up.")]
     [SerializeField] private Vector3 _stretchedScale;
     private Vector3 _initialScale;
+    public Vector3 InitialScale {
+        get => _initialScale;
+        set
+        {
+            transform.localScale = value;
+            _initialScale = value;
+            _stretchedScale.x = _initialScale.x * _scaleRatio.x;
+            _stretchedScale.y = _initialScale.y * _scaleRatio.y;
+            _stretchedScale.z = _initialScale.z * _scaleRatio.z;
+        }
+    }
+    private Vector3 _scaleRatio;
     private float _timeElapsed = 0;
 
     private InputManager _inputManager;
@@ -43,6 +55,9 @@ public class ParticleController : MonoBehaviour, IPooledObject
     private void Start()
     {
         _inputManager = InputManager.Instance;
+        _scaleRatio.x = _stretchedScale.x / _initialScale.x;
+        _scaleRatio.y = _stretchedScale.y / _initialScale.y;
+        _scaleRatio.z = _stretchedScale.z / _initialScale.z;
     }
 
     private void Update()
@@ -105,7 +120,7 @@ public class ParticleController : MonoBehaviour, IPooledObject
     {
         _timeElapsed -= Time.deltaTime / _transitionTime;
         _timeElapsed = Mathf.Clamp01(_timeElapsed);
-        transform.localScale = Vector3.Lerp(_initialScale, _stretchedScale, _timeElapsed);
+        transform.localScale = Vector3.Lerp(_stretchedScale, _initialScale, _timeElapsed);
     }
 
     public void OnObjectSpawned()
