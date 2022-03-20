@@ -123,6 +123,38 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &391676779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 391676780}
+  m_Layer: 0
+  m_Name: Teleporters
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &391676780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391676779}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 895397738}
+  - {fileID: 1684588339}
+  m_Father: {fileID: 1897370222}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &413097413 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6224975231022819444, guid: 42af56474cb384e439e278005037b34c, type: 3}
@@ -197,7 +229,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -312,7 +344,7 @@ GameObject:
   - component: {fileID: 895397740}
   - component: {fileID: 895397739}
   m_Layer: 0
-  m_Name: Destroyer
+  m_Name: TeleporterTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -325,12 +357,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 895397737}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 9.34, z: 0}
   m_LocalScale: {x: 10.31, y: 2.68, z: 1}
   m_Children: []
-  m_Father: {fileID: 1897370222}
-  m_RootOrder: 4
+  m_Father: {fileID: 391676780}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &895397739
 MonoBehaviour:
@@ -341,9 +373,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 895397737}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d5aeb0307a8cab4d9af5bffa224a9f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 480e3c5f689f4ce4e98b746b69bf62eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teleportDestination: {fileID: 1684588339}
+  offset: 3
+  top: 1
+  bot: 0
+  left: 0
+  right: 0
   tags:
   - Snow
 --- !u!61 &895397740
@@ -549,8 +587,113 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de948e58656bb4141b258cd943474ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fgToBgRatio: 0.5
   _particlePoolID: snow
+  _fgToBgRatio: 0.5
+  _fgRange: 0.25
+  _fgScale: {x: 1, y: 1, z: 1}
+  _bgScale: {x: 2, y: 2, z: 2}
+  _minSpacing: 5
+  _maxSpacing: 25
+--- !u!1 &1684588338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1684588339}
+  - component: {fileID: 1684588342}
+  - component: {fileID: 1684588341}
+  - component: {fileID: 1684588340}
+  m_Layer: 0
+  m_Name: TeleporterBot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1684588339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684588338}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -9.34, z: 0}
+  m_LocalScale: {x: 10.31, y: 2.68, z: 1}
+  m_Children: []
+  m_Father: {fileID: 391676780}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1684588340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684588338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480e3c5f689f4ce4e98b746b69bf62eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportDestination: {fileID: 895397738}
+  offset: 3
+  top: 0
+  bot: 1
+  left: 0
+  right: 0
+  tags:
+  - Snow
+--- !u!61 &1684588341
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684588338}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!50 &1684588342
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684588338}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &1864950432
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +774,7 @@ Transform:
   - {fileID: 413097413}
   - {fileID: 2015096333}
   - {fileID: 1379030880}
-  - {fileID: 895397738}
+  - {fileID: 391676780}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
