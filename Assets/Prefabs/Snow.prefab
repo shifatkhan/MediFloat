@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4324657410964689111}
   - component: {fileID: 1099714001564377592}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Snow
   m_TagString: Snow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,13 +96,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b39c1519fae74429f117fbd851821b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentState: 0
-  _maxSpeedUp: 100
-  _maxSpeedDown: 1
+  CurrentState: 2
+  _spriteRenderer: {fileID: 4324657410964689110}
+  _bgLayer: -2
+  _midLayer: -1
+  _fgLayer: 1
+  _normalScale: {x: 1, y: 1, z: 1}
+  _opacityThreshold: 0
+  _minOpacity: 0.33
+  _maxSpeedUp: 25
+  _maxSpeedDown: -1
   _acceleration: 20
   _deceleration: 50
-  _transitionTime: 0.2
-  _stretchedScale: {x: 0.15, y: 2, z: 0}
+  _transitionTimeUp: 0.33
+  _transitionTimeDown: 0.1
+  _stretchedScaleRatio: {x: 0.15, y: 2, z: 0}
 --- !u!61 &1099714001564377592
 BoxCollider2D:
   m_ObjectHideFlags: 0

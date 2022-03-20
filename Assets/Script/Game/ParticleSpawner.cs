@@ -15,18 +15,20 @@ public class ParticleSpawner : MonoBehaviour
 
     [SerializeField]
     private string _particlePoolID = "snow";
+    [SerializeField]
+    private float _expandX = 0f;
+    [SerializeField]
+    private float _expandY = 10f;
 
     [Header("Sizing")]
     [SerializeField]
     [Range(0, 1)]
     [Tooltip("1 = Spawned only on foreground, 0 = Spawned only on background.")]
-    private float _fgToBgRatio = 0.5f;
+    private float _fgBgSpawnRatio = 0.5f;
     [SerializeField]
-    private float _fgRange = 0.25f;
+    private Vector3 _maxFgScale = new Vector3(2f, 2f, 1f);
     [SerializeField]
-    private Vector3 _fgScale = Vector3.one;
-    [SerializeField]
-    private Vector3 _bgScale = new Vector3(2f, 2f, 2f);
+    private Vector3 _maxBgScale = new Vector3(0.33f, 0.33f, 1f);
 
     [Header("Spacing")]
     [SerializeField]
@@ -50,7 +52,7 @@ public class ParticleSpawner : MonoBehaviour
     private void PopulateScreen()
     {
         int poolSize = _objectPooler.PoolDictionary[_particlePoolID].Count;
-        int foregroundCount = Mathf.FloorToInt(_fgToBgRatio * poolSize);
+        int foregroundCount = Mathf.FloorToInt(_fgBgSpawnRatio * poolSize);
 
         Vector3 prevPos = Vector3.zero;
         for (int i = 0; i < poolSize; i++)
@@ -61,8 +63,8 @@ public class ParticleSpawner : MonoBehaviour
             bool ready = false;
             for (int j = 0; j < 3 && !ready; j++)
             {
-                float randX = Random.Range(_gameManager.BotLeftPoint.x, _gameManager.BotRightPoint.x);
-                float randY = Random.Range(_gameManager.BotLeftPoint.y, _gameManager.TopLeftPoint.y);
+                float randX = Random.Range(_gameManager.BotLeftPoint.x - _expandX, _gameManager.BotRightPoint.x + _expandX);
+                float randY = Random.Range(_gameManager.BotLeftPoint.y - _expandY, _gameManager.TopLeftPoint.y + _expandY);
                 newPos = new Vector3(randX, randY, 0);
 
                 float dist = Vector3.Distance(prevPos, newPos);
@@ -71,22 +73,21 @@ public class ParticleSpawner : MonoBehaviour
                     ready = true;
             }
 
-            float zRange = _fgRange / 2;
             if (foregroundCount > 0)
             {
                 // Spawn in foreground.
-                float foregroundZ = Random.Range(-zRange, zRange);
-                newPos.z = foregroundZ;
-                _objectPooler.SpawnFromPool(_particlePoolID, newPos, _fgScale, Quaternion.identity);
+                float newScaleX = Random.Range(1, _maxFgScale.x);
+                float newScaleY = newScaleX;
+                Vector3 newScale = new Vector3(newScaleX, newScaleY, 1f);
+                _objectPooler.SpawnFromPool(_particlePoolID, newPos, newScale, Quaternion.identity);
                 foregroundCount--;
             }
             else
             {
                 // Spawn in background.
-                float foregroundZ = Random.Range(zRange, 1);
-                foregroundZ *= Random.Range(0, 2) * 2 - 1; // Randomly set negative or positive.
-                Vector3 newScale = _bgScale * foregroundZ;
-                newPos.z = foregroundZ;
+                float newScaleX = Random.Range(_maxBgScale.x, 1);
+                float newScaleY = newScaleX;
+                Vector3 newScale = new Vector3(newScaleX, newScaleY, 1f);
                 var objectSpawned = _objectPooler.SpawnFromPool(_particlePoolID, newPos, newScale, Quaternion.identity);
                 objectSpawned.GetComponent<ParticleController>().InitialScale = newScale;
             }

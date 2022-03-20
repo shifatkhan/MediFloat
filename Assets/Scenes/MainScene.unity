@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 1379030880}
   - component: {fileID: 1379030881}
   m_Layer: 0
-  m_Name: Particles
+  m_Name: Particle Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -588,12 +588,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particlePoolID: snow
-  _fgToBgRatio: 0.5
-  _fgRange: 0.25
-  _fgScale: {x: 1, y: 1, z: 1}
-  _bgScale: {x: 2, y: 2, z: 2}
-  _minSpacing: 5
-  _maxSpacing: 25
+  _expandX: 0
+  _expandY: 2
+  _fgBgSpawnRatio: 0.335
+  _maxFgScale: {x: 2, y: 2, z: 1}
+  _maxBgScale: {x: 0.33, y: 0.33, z: 1}
+  _minSpacing: 25
+  _maxSpacing: 40
 --- !u!1 &1684588338
 GameObject:
   m_ObjectHideFlags: 0
