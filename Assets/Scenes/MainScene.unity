@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 761006612}
   - component: {fileID: 761006613}
   m_Layer: 0
-  m_Name: ScreenManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -358,8 +358,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 895397737}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 9.34, z: 0}
-  m_LocalScale: {x: 10.31, y: 2.68, z: 1}
+  m_LocalPosition: {x: 0, y: 11, z: 0}
+  m_LocalScale: {x: 20, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 391676780}
   m_RootOrder: 0
@@ -588,8 +588,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particlePoolID: snow
-  _expandX: 0
-  _expandY: 2
+  _expandX: 0.5
+  _expandY: 3
   _fgBgSpawnRatio: 0.335
   _maxFgScale: {x: 2, y: 2, z: 1}
   _maxBgScale: {x: 0.33, y: 0.33, z: 1}
@@ -622,8 +622,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684588338}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -9.34, z: 0}
-  m_LocalScale: {x: 10.31, y: 2.68, z: 1}
+  m_LocalPosition: {x: 0, y: -11, z: 0}
+  m_LocalScale: {x: 20, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 391676780}
   m_RootOrder: 1

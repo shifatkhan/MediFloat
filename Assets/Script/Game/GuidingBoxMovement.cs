@@ -54,7 +54,7 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     /// Calculate the top and bottom coordinate to which we will
     /// move the guiding box to.
     /// </summary>
-    private void RecalculateMovePositions()
+    public void RecalculateMovePositions()
     {
         _gameManager.BoxTopPosition = new Vector3(
             0f,
@@ -112,5 +112,11 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, new Vector3(_spriteMask.bounds.size.x + margin, _spriteMask.bounds.size.y + margin, 0f));
+    }
+
+    private void OnDestroy()
+    {
+        _moveToTop.Kill();
+        _moveToBot.Kill();
     }
 }

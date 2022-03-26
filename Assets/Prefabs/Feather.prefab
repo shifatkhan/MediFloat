@@ -127,4 +127,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentState: 2
-  _speedMultiplier: 1.25
+  SpeedMultiplier: 1.25

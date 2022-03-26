@@ -15,7 +15,7 @@ public class FeatherMovement : MonoBehaviour
 {
     public MoveState CurrentState = MoveState.IDLE;
 
-    [SerializeField] private float _speedMultiplier = 1f;
+    public float SpeedMultiplier = 1f;
 
     private Tween _moveToTop;
     private Tween _moveToBot;
@@ -55,7 +55,7 @@ public class FeatherMovement : MonoBehaviour
 
         CurrentState = MoveState.UP;
         _moveToTop = transform
-            .DOMoveY(_gameManager.BoxTopPosition.y, _guidingBox.MoveTimeToTop / _speedMultiplier)
+            .DOMoveY(_gameManager.BoxTopPosition.y, _guidingBox.MoveTimeToTop / SpeedMultiplier)
             .SetUpdate(UpdateType.Fixed)
             .SetEase(_guidingBox.AnimationCurve)
             .SetAutoKill(false)
@@ -74,7 +74,7 @@ public class FeatherMovement : MonoBehaviour
 
         CurrentState = MoveState.DOWN;
         _moveToBot = transform
-            .DOMoveY(_gameManager.BoxBotPosition.y, _guidingBox.MoveTimeToBot / _speedMultiplier)
+            .DOMoveY(_gameManager.BoxBotPosition.y, _guidingBox.MoveTimeToBot / SpeedMultiplier)
             .SetUpdate(UpdateType.Fixed)
             .SetEase(_guidingBox.AnimationCurve)
             .SetRecyclable(true);

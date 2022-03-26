@@ -93,4 +93,13 @@ public class ParticleSpawner : MonoBehaviour
             }
         }
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (_gameManager == null)
+            return;
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(transform.position, new Vector3((_gameManager.TopRightPoint.x * 2) + _expandX, (_gameManager.TopLeftPoint.y * 2) + _expandY, 0f));
+    }
 }
