@@ -66,14 +66,14 @@ public class ParticleController : MonoBehaviour, IPooledObject
             if (_initialScale.x > _normalScale.x + _opacityThreshold)
             {
                 Color prevColor = _spriteRenderer.color;
-                prevColor.a = _initialScale.x - (_normalScale.x + _opacityThreshold);
+                prevColor.a = _normalScale.x - (_initialScale.x - _normalScale.x);
                 prevColor.a = Mathf.Clamp(prevColor.a, _minOpacity, 1f);
                 _spriteRenderer.color = prevColor;
             }
             else if(_initialScale.x < _normalScale.x - _opacityThreshold)
             {
                 Color prevColor = _spriteRenderer.color;
-                prevColor.a = (_normalScale.x + _opacityThreshold) - _initialScale.x;
+                prevColor.a = _normalScale.x - _initialScale.x;
                 prevColor.a = Mathf.Clamp(prevColor.a, _minOpacity, 1f);
                 _spriteRenderer.color = prevColor;
             }
@@ -92,7 +92,7 @@ public class ParticleController : MonoBehaviour, IPooledObject
     #region Monobehaviour functions
     private void Awake()
     {
-        _initialScale = transform.localScale;
+        InitialScale = transform.localScale;
     }
 
     private void Start()

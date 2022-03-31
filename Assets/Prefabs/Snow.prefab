@@ -102,8 +102,8 @@ MonoBehaviour:
   _midLayer: -1
   _fgLayer: 1
   _normalScale: {x: 1, y: 1, z: 1}
-  _opacityThreshold: 0
-  _minOpacity: 0.33
+  _opacityThreshold: 0.3
+  _minOpacity: 0.1
   _maxSpeedUp: 25
   _maxSpeedDown: -1
   _acceleration: 20
