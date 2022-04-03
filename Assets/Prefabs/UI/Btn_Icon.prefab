@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4326571560290004742}
   - component: {fileID: 4326571560290004741}
   - component: {fileID: 4326571560290004740}
+  - component: {fileID: 4930555065097696164}
   m_Layer: 5
   m_Name: Btn_Icon
   m_TagString: Untagged
@@ -120,3 +121,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4930555065097696164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326571560290004762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e067c8a0e0cd8a64eaf230bf21a09cd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showOpacity: 1
+  _animationDuration: 0.33

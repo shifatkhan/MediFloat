@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BreathingConfig : MonoBehaviour
+[CreateAssetMenu(fileName = "New BreathConfig", menuName = "ScriptableObjects/BreathingConfig")]
+public class BreathingConfig : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string Name = "Default 4-7-8";
+    public float InTime = 4;
+    public float Hold = 7;
+    public float OutTime = 8;
 }
