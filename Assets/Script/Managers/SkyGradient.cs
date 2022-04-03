@@ -14,6 +14,8 @@ public class SkyGradient : MonoBehaviour
     }
 
     [SerializeField]
+    private bool _animateOnStart = true;
+    [SerializeField]
     private SpriteRenderer _topSprite;
     [SerializeField]
     private SpriteRenderer _botSprite;
@@ -30,7 +32,8 @@ public class SkyGradient : MonoBehaviour
 
     private void Start()
     {
-        StartColorChange();
+        if (_animateOnStart)
+            StartColorChange();
     }
 
     private void OnDestroy()

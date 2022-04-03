@@ -17,6 +17,8 @@ public class FeatherMovement : MonoBehaviour
 
     public float SpeedMultiplier = 1f;
 
+    public bool ControllerEnabled = true;
+
     private Tween _moveToTop;
     private Tween _moveToBot;
 
@@ -33,6 +35,8 @@ public class FeatherMovement : MonoBehaviour
 
     private void Update()
     {
+        if (!ControllerEnabled) return;
+
         if (_inputManager.MouseButton0)
         {
             MoveToTop();

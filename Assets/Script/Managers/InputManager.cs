@@ -11,10 +11,14 @@ using UnityEngine;
 /// </summary>
 public class InputManager : Singleton<InputManager>
 {
+    public bool InputEnabled = true;
+
     public bool MouseButton0 { get; private set; }
 
     private void Update()
     {
+        if (!InputEnabled) return;
+
         MouseButton0 = Input.GetMouseButton(0);
     }
 }
