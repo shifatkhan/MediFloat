@@ -70,6 +70,7 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
             .DOMoveY(_gameManager.BoxTopPosition.y, MoveTimeToTop)
             .SetUpdate(UpdateType.Fixed)
             .SetDelay(DelayTop)
+            .OnStart(() => { CurrentState = MoveState.UP; })
             .SetEase(_animationCurve)
             .OnComplete(MoveToBot)
             .SetAutoKill(false);
@@ -103,7 +104,7 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     /// </summary>
     public void MoveToBot()
     {
-        CurrentState = MoveState.IDLE;
+        CurrentState = MoveState.DOWN;
         _moveToBot.Restart();
     }
     #endregion

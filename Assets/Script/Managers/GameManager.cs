@@ -38,6 +38,11 @@ public class GameManager : Singleton<GameManager>
     private GameState _gameState = GameState.NOT_STARTED;
     public GameState GameState => _gameState;
 
+    [SerializeField]
+    private GuidingBoxMovement _guidingBox;
+    [SerializeField]
+    private DropdownHelper _breathingConfigDropdown;
+
     [Header("Events")]
     public UnityEvent GameStartEvent;
     public UnityEvent GamePauseEvent;
@@ -57,6 +62,11 @@ public class GameManager : Singleton<GameManager>
 
     public void StartGame()
     {
+        BreathingConfig chosenConfig = _breathingConfigDropdown.GetSelectedItem();
+        _guidingBox.MoveTimeToTop = chosenConfig.InTime;
+        _guidingBox.MoveTimeToBot = chosenConfig.OutTime;
+        _guidingBox.DelayBot = chosenConfig.Hold;
+        _guidingBox.DelayTop = 1;
         GameStartEvent.Invoke();
     }
 
