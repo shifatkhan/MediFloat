@@ -37,6 +37,8 @@ public class SpriteHelper : MonoBehaviour, IPictureHelper
         DOTween.Kill(_spriteRenderer);
     }
 
+    public void Show() => Show(_showOpacity, _animationDuration, null);
+
     public void Show(UnityEvent onComplete = null) => Show(_showOpacity, _animationDuration, onComplete);
 
     public void Show(float opacity, float animDuration, UnityEvent onComplete = null)
@@ -46,6 +48,8 @@ public class SpriteHelper : MonoBehaviour, IPictureHelper
         _spriteRenderer.DOColor(_showColor, animDuration)
             .OnComplete(() => onComplete?.Invoke());
     }
+
+    public void Hide() => Hide(_animationDuration, null);
 
     public void Hide(UnityEvent onComplete = null) => Hide(_animationDuration, onComplete);
 

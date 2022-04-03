@@ -41,12 +41,12 @@ public class ParticleSpawner : MonoBehaviour
         _objectPooler = ObjectPooler.Instance;
 
         _gameManager = GameManager.Instance;
-        _gameManager.GameStartedEvent.AddListener(PopulateScreen);
+        _gameManager.GameReadyEvent.AddListener(PopulateScreen);
     }
 
     private void OnDestroy()
     {
-        _gameManager.GameStartedEvent.RemoveListener(PopulateScreen);
+        _gameManager.GameReadyEvent.RemoveListener(PopulateScreen);
     }
 
     private void PopulateScreen()

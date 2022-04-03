@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41470cf0ec010664a81b28b777c54992, type: 3}
-  m_Name: 4-7-8
+  m_Name: -1 custom
   m_EditorClassIdentifier: 
-  InTime: 4
-  Hold: 7
-  OutTime: 8
+  Name: Custom
+  InTime: -1
+  Hold: -1
+  OutTime: -1

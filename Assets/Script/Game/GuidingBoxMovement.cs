@@ -45,7 +45,7 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
         MoveToTop();
 
         // Let the game know that everything is ready to go.
-        _gameManager.StartGame();
+        _gameManager.SetGameReady();
     }
     #endregion
 

@@ -38,8 +38,10 @@ public class GameManager : Singleton<GameManager>
     private GameState _gameState = GameState.NOT_STARTED;
     public GameState GameState => _gameState;
 
-    [HideInInspector] public UnityEvent GameStartedEvent;
-    [HideInInspector] public UnityEvent GamePausedEvent;
+    [Header("Events")]
+    public UnityEvent GameStartEvent;
+    public UnityEvent GamePauseEvent;
+    [HideInInspector] public UnityEvent GameReadyEvent;
     [HideInInspector] public UnityEvent RecalculateScreenEvent;
     #endregion
 
@@ -55,14 +57,19 @@ public class GameManager : Singleton<GameManager>
 
     public void StartGame()
     {
-        GameStartedEvent.Invoke();
+        GameStartEvent.Invoke();
+    }
+
+    public void SetGameReady()
+    {
+        GameReadyEvent.Invoke();
 
         _gameState = GameState.STARTED;
     }
 
     public void PauseGame()
     {
-        GamePausedEvent.Invoke();
+        GamePauseEvent.Invoke();
 
         _gameState = GameState.PAUSED;
     }

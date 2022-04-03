@@ -17,25 +17,28 @@ public class FeatherMovement : MonoBehaviour
 
     public float SpeedMultiplier = 1f;
 
-    public bool ControllerEnabled = true;
-
     private Tween _moveToTop;
     private Tween _moveToBot;
+    private Tween _moveToInitialPos;
 
     private GuidingBoxMovement _guidingBox;
     private InputManager _inputManager;
     private GameManager _gameManager;
 
+
+    private Vector3 _initialPos;
     private void Start()
     {
         _guidingBox = GuidingBoxMovement.Instance;
         _inputManager = InputManager.Instance;
         _gameManager = GameManager.Instance;
+
+        _initialPos = transform.position;
     }
 
     private void Update()
     {
-        if (!ControllerEnabled) return;
+        if (!_inputManager.InputEnabled) return;
 
         if (_inputManager.MouseButton0)
         {
@@ -47,6 +50,13 @@ public class FeatherMovement : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        _moveToTop.Kill();
+        _moveToBot.Kill();
+        _moveToInitialPos.Kill();
+    }
+
     /// <summary>
     /// Moves the feather towards the top of the screen.
     /// </summary>
@@ -56,6 +66,7 @@ public class FeatherMovement : MonoBehaviour
             return;
 
         _moveToBot?.Pause();
+        _moveToInitialPos?.Pause();
 
         CurrentState = MoveState.UP;
         _moveToTop = transform
@@ -75,10 +86,24 @@ public class FeatherMovement : MonoBehaviour
             return;
 
         _moveToTop?.Pause();
+        _moveToInitialPos?.Pause();
 
         CurrentState = MoveState.DOWN;
         _moveToBot = transform
             .DOMoveY(_gameManager.BoxBotPosition.y, _guidingBox.MoveTimeToBot / SpeedMultiplier)
+            .SetUpdate(UpdateType.Fixed)
+            .SetEase(_guidingBox.AnimationCurve)
+            .SetRecyclable(true);
+    }
+
+    public void MoveToInitialPos()
+    {
+        _moveToTop?.Pause();
+        _moveToBot?.Pause();
+
+        CurrentState = MoveState.DOWN;
+        _moveToInitialPos = transform
+            .DOMoveY(_initialPos.y, _guidingBox.MoveTimeToTop / SpeedMultiplier)
             .SetUpdate(UpdateType.Fixed)
             .SetEase(_guidingBox.AnimationCurve)
             .SetRecyclable(true);

@@ -21,4 +21,9 @@ public class InputManager : Singleton<InputManager>
 
         MouseButton0 = Input.GetMouseButton(0);
     }
+
+    public void SetInputEnabled(bool inputEnabled)
+    {
+        InputEnabled = inputEnabled;
+    }
 }

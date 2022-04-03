@@ -3,13 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
-public class ImageHelper : MonoBehaviour, IPictureHelper
+public class CanvasGroupHelper : MonoBehaviour, IPictureHelper
 {
-    private Image _image;
-    private Color _showColor;
-    private Color _hideColor;
+    private CanvasGroup _canvasGroup;
 
     [Range(0, 1)]
     [SerializeField]
@@ -19,23 +16,12 @@ public class ImageHelper : MonoBehaviour, IPictureHelper
 
     private void Awake()
     {
-        _image = GetComponent<Image>();
-    }
-
-    private void Start()
-    {
-        if (_image == null) return;
-
-        _showColor = _image.color;
-        _showColor.a = _showOpacity;
-
-        _hideColor = _image.color;
-        _hideColor.a = 0f;
+        _canvasGroup = GetComponent<CanvasGroup>();
     }
 
     private void OnDestroy()
     {
-        DOTween.Kill(_image);
+        DOTween.Kill(_canvasGroup);
     }
 
     public void Show() => Show(_showOpacity, _animationDuration, null);
@@ -44,9 +30,7 @@ public class ImageHelper : MonoBehaviour, IPictureHelper
 
     public void Show(float opacity, float animDuration, UnityEvent onComplete = null)
     {
-        _showColor.a = opacity;
-
-        _image.DOColor(_showColor, animDuration)
+        _canvasGroup.DOFade(_showOpacity, animDuration)
             .OnComplete(() => onComplete?.Invoke());
     }
 
@@ -56,7 +40,7 @@ public class ImageHelper : MonoBehaviour, IPictureHelper
 
     public void Hide(float animDuration, UnityEvent onComplete = null)
     {
-        _image.DOColor(_hideColor, animDuration)
+        _canvasGroup.DOFade(0, animDuration)
             .OnComplete(() => onComplete?.Invoke());
     }
 }

@@ -391,8 +391,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a2d214e4ef88ee49923a2ed49e9f0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _items: []
-  _dropdown: {fileID: 0}
+  _items:
+  - {fileID: 11400000, guid: 490ef42094067f347a5e2d97916087a6, type: 2}
+  - {fileID: 11400000, guid: 283d90cec77505a419589b14e4e6f4f9, type: 2}
+  - {fileID: 11400000, guid: a2f510c412f92af4ba047dfd5db8ff58, type: 2}
+  - {fileID: 11400000, guid: b11fe476ced1e794aafcbb1b32e1a673, type: 2}
 --- !u!1 &7710928966979635529
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,7 +674,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Option A
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

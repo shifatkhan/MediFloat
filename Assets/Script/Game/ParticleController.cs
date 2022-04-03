@@ -102,6 +102,15 @@ public class ParticleController : MonoBehaviour, IPooledObject
 
     private void Update()
     {
+        if (!_inputManager.InputEnabled)
+        {
+            if (CurrentState == MoveState.UP)
+                _stateChanged = true;
+
+            CurrentState = MoveState.DOWN;
+            return;
+        }
+
         if(_inputManager.MouseButton0)
         {
             if (CurrentState == MoveState.DOWN)
