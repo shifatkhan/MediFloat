@@ -29,11 +29,15 @@ public class SkyGradient : MonoBehaviour
     private float _delay = 5f;
 
     private int _currIndex = 0;
+    private ColorCombo _initialColorCombo = new ColorCombo();
 
     private void Start()
     {
         if (_animateOnStart)
             StartColorChange();
+
+        _initialColorCombo.TopColor = _topSprite.color;
+        _initialColorCombo.BotColor = _botSprite.color;
     }
 
     private void OnDestroy()
@@ -68,5 +72,15 @@ public class SkyGradient : MonoBehaviour
 
         _botSprite.DOColor(_skyColors[_currIndex].BotColor, _transitionDuration)
             .SetDelay(_delay);
+    }
+
+    public void ResetToInitialColor()
+    {
+        DOTween.Kill(_topSprite);
+        DOTween.Kill(_botSprite);
+
+        _topSprite.DOColor(_initialColorCombo.TopColor, _transitionDuration);
+
+        _botSprite.DOColor(_initialColorCombo.BotColor, _transitionDuration);
     }
 }

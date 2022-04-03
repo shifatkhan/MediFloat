@@ -52,13 +52,48 @@ MonoBehaviour:
   _animateOnStart: 1
   _TMP_text: {fileID: 8127375775225208514}
   _canvasGroup: {fileID: 8127375775225208516}
-  _textSlides:
-  - Hold the screen to breathe in,<br>Release to breathe out
-  - Keep the feather in the box as guidance.
-  - Don't worry if it's too difficult.
-  - As long as the out breath is longer than the in breath, it will still work.
+  _slides:
+  - text: Hold the screen to breathe in,<br>Release to breathe out
+    duration: 7
+    OnSlideStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSlideEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - text: Keep the feather in the box as guidance
+    duration: 5
+    OnSlideStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSlideEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - text: Don't worry if it's too difficult
+    duration: 5
+    OnSlideStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSlideEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - text: As long as the out breath is longer than the in breath ...
+    duration: 7
+    OnSlideStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSlideEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - text: it will still work
+    duration: 4
+    OnSlideStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSlideEnd:
+      m_PersistentCalls:
+        m_Calls: []
   _transitionDuration: 3
-  _delay: 7
 --- !u!1 &8127375775225208512
 GameObject:
   m_ObjectHideFlags: 0

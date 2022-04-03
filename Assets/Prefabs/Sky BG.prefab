@@ -140,13 +140,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2408e9e3c96353c49ad628c43edda789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animateOnStart: 0
   _topSprite: {fileID: 5003253922255851749}
   _botSprite: {fileID: 5003253923640089821}
   _skyColors:
-  - TopColor: {r: 0.5686275, g: 0.91764706, b: 0.89411765, a: 1}
-    BotColor: {r: 0.49803922, g: 0.49803922, b: 0.8352941, a: 1}
-  - TopColor: {r: 1, g: 1, b: 1, a: 1}
-    BotColor: {r: 0.16078432, g: 0.5019608, b: 0.7254902, a: 1}
+  - TopColor: {r: 0.49803922, g: 0.80944145, b: 0.827451, a: 1}
+    BotColor: {r: 0.16078432, g: 0.38759115, b: 0.7254902, a: 1}
   - TopColor: {r: 0.18039216, g: 0.7490196, b: 0.5686275, a: 1}
     BotColor: {r: 0.5137255, g: 0.3764706, b: 0.7647059, a: 1}
   - TopColor: {r: 1, g: 0.83137256, b: 0.32156864, a: 1}
@@ -158,7 +157,7 @@ MonoBehaviour:
   - TopColor: {r: 0.91764706, g: 0.6862745, b: 0.78431374, a: 1}
     BotColor: {r: 0.39607844, g: 0.30588236, b: 0.6392157, a: 1}
   _transitionDuration: 10
-  _delay: 5
+  _delay: 10
 --- !u!1 &5003253923640089823
 GameObject:
   m_ObjectHideFlags: 0
