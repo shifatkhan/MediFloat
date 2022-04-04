@@ -48,6 +48,6 @@ MonoBehaviour:
   _expandY: 3
   _fgBgSpawnRatio: 0.335
   _maxFgScale: {x: 2, y: 2, z: 1}
-  _maxBgScale: {x: 0.33, y: 0.33, z: 1}
+  _maxBgScale: {x: 0.3, y: 0.3, z: 1}
   _minSpacing: 25
   _maxSpacing: 40

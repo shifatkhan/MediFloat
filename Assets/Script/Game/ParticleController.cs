@@ -66,9 +66,12 @@ public class ParticleController : MonoBehaviour, IPooledObject
             if (_initialScale.x > _normalScale.x + _opacityThreshold)
             {
                 Color prevColor = _spriteRenderer.color;
-                prevColor.a = _normalScale.x - (_initialScale.x - _normalScale.x);
+                prevColor.a = _initialScale.x - _normalScale.x - _opacityThreshold;
                 prevColor.a = Mathf.Clamp(prevColor.a, _minOpacity, 1f);
                 _spriteRenderer.color = prevColor;
+
+                _maxSpeedUp = _maxSpeedUp * 2 + (_maxSpeedUp * prevColor.a);
+                _maxSpeedDown = _maxSpeedDown * 2 - (_maxSpeedDown * prevColor.a);
             }
             else if(_initialScale.x < _normalScale.x - _opacityThreshold)
             {
@@ -76,6 +79,9 @@ public class ParticleController : MonoBehaviour, IPooledObject
                 prevColor.a = _normalScale.x - _initialScale.x;
                 prevColor.a = Mathf.Clamp(prevColor.a, _minOpacity, 1f);
                 _spriteRenderer.color = prevColor;
+
+                _maxSpeedUp *= prevColor.a;
+                _maxSpeedDown *= prevColor.a;
             }
         }
     }

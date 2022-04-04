@@ -79,7 +79,8 @@ public class ParticleSpawner : MonoBehaviour
                 float newScaleX = Random.Range(1, _maxFgScale.x);
                 float newScaleY = newScaleX;
                 Vector3 newScale = new Vector3(newScaleX, newScaleY, 1f);
-                _objectPooler.SpawnFromPool(_particlePoolID, newPos, newScale, Quaternion.identity);
+                var objectSpawned = _objectPooler.SpawnFromPool(_particlePoolID, newPos, newScale, Quaternion.identity);
+                objectSpawned.GetComponent<ParticleController>().InitialScale = newScale;
                 foregroundCount--;
             }
             else
