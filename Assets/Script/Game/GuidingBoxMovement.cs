@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 /// <summary>
 /// Continuously moves the gameobject up and down .
@@ -46,6 +47,27 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
 
         // Let the game know that everything is ready to go.
         _gameManager.SetGameReady();
+    }
+    #endregion
+
+    #region Monobehavior functions
+    public void SetMoveTimeToTop(TMP_InputField input)
+    {
+        if (string.IsNullOrEmpty(input.text)) return;
+
+        MoveTimeToTop = int.Parse(input.text);
+    }
+    public void SetDelayBot(TMP_InputField input)
+    {
+        if (string.IsNullOrEmpty(input.text)) return;
+
+        DelayBot = int.Parse(input.text);
+    }
+    public void SetMoveTimeToBot(TMP_InputField input)
+    {
+        if (string.IsNullOrEmpty(input.text)) return;
+
+        MoveTimeToBot = int.Parse(input.text);
     }
     #endregion
 

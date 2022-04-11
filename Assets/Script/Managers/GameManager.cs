@@ -63,10 +63,15 @@ public class GameManager : Singleton<GameManager>
     public void StartGame()
     {
         BreathingConfig chosenConfig = _breathingConfigDropdown.GetSelectedItem();
-        _guidingBox.MoveTimeToTop = chosenConfig.InTime;
-        _guidingBox.MoveTimeToBot = chosenConfig.OutTime;
-        _guidingBox.DelayBot = chosenConfig.Hold;
-        _guidingBox.DelayTop = 1;
+
+        if (!chosenConfig.Name.ToLower().Contains("custom"))
+        {
+            _guidingBox.MoveTimeToTop = chosenConfig.InTime;
+            _guidingBox.MoveTimeToBot = chosenConfig.OutTime;
+            _guidingBox.DelayBot = chosenConfig.Hold;
+            _guidingBox.DelayTop = 1;
+        }
+
         GameStartEvent.Invoke();
     }
 
