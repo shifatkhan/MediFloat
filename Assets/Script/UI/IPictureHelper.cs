@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +8,13 @@ public interface IPictureHelper
 {
     public void Show();
 
-    public void Show(UnityEvent onComplete = null);
+    public void Show(Action onComplete = null);
 
-    public void Show(float opacity, float animDuration, UnityEvent onComplete = null);
+    public void Show(float opacity, float animDuration, Action onComplete = null);
 
     public void Hide();
 
-    public void Hide(UnityEvent onComplete = null);
+    public void Hide(Action onComplete = null);
 
-    public void Hide(float animDuration, UnityEvent onComplete = null);
+    public void Hide(float animDuration, Action onComplete = null);
 }

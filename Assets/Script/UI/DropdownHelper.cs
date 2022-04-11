@@ -28,10 +28,22 @@ public class DropdownHelper : MonoBehaviour
         {
             _dropdown.options.Add(new OptionData(breathingConfig.Name));
         }
+
+        if (_dropdown.options.Count > 0)
+        {
+            // TODO: Dropdown doesn't show the selected index 0, so I select 1 first. Fix it.
+            _dropdown.value = 1;
+            _dropdown.value = 0;
+        }
     }
 
     public BreathingConfig GetSelectedItem()
     {
         return _items[_dropdown.value];
+    }
+
+    public string GetSelectedValue()
+    {
+        return _dropdown.options[_dropdown.value].text;
     }
 }

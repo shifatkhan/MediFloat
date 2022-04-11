@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,9 +41,9 @@ public class ImageHelper : MonoBehaviour, IPictureHelper
 
     public void Show() => Show(_showOpacity, _animationDuration, null);
 
-    public void Show(UnityEvent onComplete = null) => Show(_showOpacity, _animationDuration, onComplete);
+    public void Show(Action onComplete = null) => Show(_showOpacity, _animationDuration, onComplete);
 
-    public void Show(float opacity, float animDuration, UnityEvent onComplete = null)
+    public void Show(float opacity, float animDuration, Action onComplete = null)
     {
         _showColor.a = opacity;
 
@@ -52,9 +53,9 @@ public class ImageHelper : MonoBehaviour, IPictureHelper
 
     public void Hide() => Hide(_animationDuration, null);
 
-    public void Hide(UnityEvent onComplete = null) => Hide(_animationDuration, onComplete);
+    public void Hide(Action onComplete = null) => Hide(_animationDuration, onComplete);
 
-    public void Hide(float animDuration, UnityEvent onComplete = null)
+    public void Hide(float animDuration, Action onComplete = null)
     {
         _image.DOColor(_hideColor, animDuration)
             .OnComplete(() => onComplete?.Invoke());

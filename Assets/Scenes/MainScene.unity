@@ -1967,6 +1967,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 115365102}
     m_Modifications:
+    - target: {fileID: 5605875267943620862, guid: 137bc4abc8243fa42873f9259a605851, type: 3}
+      propertyPath: m_text
+      value: "\u200B"
+      objectReference: {fileID: 0}
     - target: {fileID: 7869576057085487304, guid: 137bc4abc8243fa42873f9259a605851, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
