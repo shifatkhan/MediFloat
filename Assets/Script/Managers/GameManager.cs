@@ -62,6 +62,9 @@ public class GameManager : Singleton<GameManager>
 
     public void StartGame()
     {
+        if (_gameState == GameState.NOT_STARTED)
+            return;
+
         BreathingConfig chosenConfig = _breathingConfigDropdown.GetSelectedItem();
 
         if (!chosenConfig.Name.ToLower().Contains("custom"))

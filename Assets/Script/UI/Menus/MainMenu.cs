@@ -22,4 +22,9 @@ public class MainMenu : MonoBehaviour
             _customFields.Hide(() => _customFields.gameObject.SetActive(true));
         }
     }
+
+    public void OnExitGame()
+    {
+        Application.Quit();
+    }
 }

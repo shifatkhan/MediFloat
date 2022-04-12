@@ -17,6 +17,25 @@ public class FeatherMovement : MonoBehaviour
 
     public float SpeedMultiplier = 1f;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioSource _audioSource;
+    [Range(0,1)]
+    [SerializeField]
+    private float _breatheInVolume = 1f;
+    [SerializeField]
+    private float _breathInPitch = 1f;
+    [SerializeField]
+    private float _holdVolume = 0f;
+    [SerializeField]
+    private float _holdPitch = 0.5f;
+    [SerializeField]
+    private float _breatheOutVolume = 1f;
+    [SerializeField]
+    private float _breathOutPitch = 1f;
+    [SerializeField]
+    private float _audioTransitionTime = 0.33f;
+
     private Tween _moveToTop;
     private Tween _moveToBot;
     private Tween _moveToInitialPos;
@@ -34,6 +53,9 @@ public class FeatherMovement : MonoBehaviour
         _gameManager = GameManager.Instance;
 
         _initialPos = transform.position;
+
+        _gameManager.GameStartEvent.AddListener(() => AudioTransition(_breatheOutVolume, _breathOutPitch));
+        _gameManager.GamePauseEvent.AddListener(() => AudioTransition(0, _holdPitch));
     }
 
     private void Update()
@@ -74,7 +96,10 @@ public class FeatherMovement : MonoBehaviour
             .SetUpdate(UpdateType.Fixed)
             .SetEase(_guidingBox.AnimationCurve)
             .SetAutoKill(false)
-            .SetRecyclable(true);
+            .SetRecyclable(true)
+            .OnComplete(() => { if (_gameManager.GameState != GameState.PAUSED) AudioTransition(_holdVolume, _holdPitch); });
+
+        AudioTransition(_breatheInVolume, _breathInPitch);
     }
 
     /// <summary>
@@ -94,6 +119,8 @@ public class FeatherMovement : MonoBehaviour
             .SetUpdate(UpdateType.Fixed)
             .SetEase(_guidingBox.AnimationCurve)
             .SetRecyclable(true);
+
+        AudioTransition(_breatheOutVolume, _breathOutPitch);
     }
 
     public void MoveToInitialPos()
@@ -107,5 +134,11 @@ public class FeatherMovement : MonoBehaviour
             .SetUpdate(UpdateType.Fixed)
             .SetEase(_guidingBox.AnimationCurve)
             .SetRecyclable(true);
+    }
+
+    private void AudioTransition(float volume, float pitch)
+    {
+        _audioSource.DOFade(volume, _audioTransitionTime);
+        _audioSource.DOPitch(pitch, _audioTransitionTime);
     }
 }
