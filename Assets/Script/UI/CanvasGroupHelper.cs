@@ -14,6 +14,8 @@ public class CanvasGroupHelper : MonoBehaviour, IPictureHelper
     private float _showOpacity = 1f;
     [SerializeField]
     private float _animationDuration = 0.33f;
+    [SerializeField]
+    private bool _useGameObjectActiveState = false;
 
     private void Awake()
     {
@@ -31,6 +33,9 @@ public class CanvasGroupHelper : MonoBehaviour, IPictureHelper
 
     public void Show(float opacity, float animDuration, Action onComplete = null)
     {
+        if (_useGameObjectActiveState)
+            _canvasGroup.gameObject.SetActive(true);
+
         _canvasGroup.DOFade(_showOpacity, animDuration)
             .OnComplete(() => onComplete?.Invoke());
     }
@@ -42,6 +47,11 @@ public class CanvasGroupHelper : MonoBehaviour, IPictureHelper
     public void Hide(float animDuration, Action onComplete = null)
     {
         _canvasGroup.DOFade(0, animDuration)
-            .OnComplete(() => onComplete?.Invoke());
+            .OnComplete(() => 
+            { 
+                onComplete?.Invoke();
+                if (_useGameObjectActiveState)
+                    _canvasGroup.gameObject.SetActive(false);
+            });
     }
 }

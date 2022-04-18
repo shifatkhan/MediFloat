@@ -46,4 +46,12 @@ public class DropdownHelper : MonoBehaviour
     {
         return _dropdown.options[_dropdown.value].text;
     }
+
+    public void SetSelected(int index)
+    {
+        if (index < 0 || index > _dropdown.options.Count - 1)
+            return;
+
+        _dropdown.value = index;
+    }
 }
