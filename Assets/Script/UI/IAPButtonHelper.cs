@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// A custom IAP Button component to load item price.
+/// </summary>
 public class IAPButtonHelper : MonoBehaviour
 {
     [SerializeField]
