@@ -2363,9 +2363,17 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3077458335884975809, guid: 92cc49eaab4dc6f4790b9630f6abbeb2, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6156764841992433652, guid: 92cc49eaab4dc6f4790b9630f6abbeb2, type: 3}
       propertyPath: m_Name
       value: SettingsMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156764841992433652, guid: 92cc49eaab4dc6f4790b9630f6abbeb2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6156764841992433653, guid: 92cc49eaab4dc6f4790b9630f6abbeb2, type: 3}
       propertyPath: m_Pivot.x
