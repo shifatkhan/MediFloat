@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Sets gameobject as active for specified platforms.
+/// </summary>
 public class PlatformEnabler : MonoBehaviour
 {
     [SerializeField]
@@ -9,7 +12,7 @@ public class PlatformEnabler : MonoBehaviour
 
     private void Start()
     {
-        if (!_platforms.Contains(Application.platform))
-            gameObject.SetActive(false);
+        if (_platforms.Contains(Application.platform))
+            gameObject.SetActive(true);
     }
 }
