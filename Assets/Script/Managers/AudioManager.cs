@@ -33,7 +33,8 @@ public class AudioManager : Singleton<AudioManager>
 
     public void SetVolume(float value)
     {
-        mainMixer.SetFloat(VOLUME_ID, Mathf.Log10(value) * 20);
+        float volume = Mathf.Clamp(Mathf.Log10(value) * 20, -80, 0);
+        mainMixer.SetFloat(VOLUME_ID, volume);
         UpdateImage(value);
     }
 
