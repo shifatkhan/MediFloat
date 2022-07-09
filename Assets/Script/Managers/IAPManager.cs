@@ -148,6 +148,7 @@ public class IAPManager : Singleton<IAPManager>, IStoreListener
     public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
         DebugHelper.Log(this.GetType().Name, $"OnPurchaseFAILED for product {product.definition.id}, {failureReason.ToString()}");
+        GenericPopup.Instance.Show("Could not complete purchase at this time. Please try again later.");
     }
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)

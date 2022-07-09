@@ -31,7 +31,7 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-            _customFields.Hide(() => _customFields.gameObject.SetActive(true));
+            _customFields?.Hide(() => _customFields.gameObject.SetActive(true));
         }
     }
 

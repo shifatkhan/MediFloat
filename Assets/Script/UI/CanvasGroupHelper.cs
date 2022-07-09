@@ -33,9 +33,13 @@ public class CanvasGroupHelper : MonoBehaviour, IPictureHelper
 
     public void Show(float opacity, float animDuration, Action onComplete = null)
     {
+        if (_canvasGroup == null)
+            return;
+
         if (_useGameObjectActiveState)
             _canvasGroup.gameObject.SetActive(true);
 
+        _canvasGroup.blocksRaycasts = true;
         _canvasGroup.DOFade(_showOpacity, animDuration)
             .OnComplete(() => onComplete?.Invoke());
     }
@@ -46,6 +50,10 @@ public class CanvasGroupHelper : MonoBehaviour, IPictureHelper
 
     public void Hide(float animDuration, Action onComplete = null)
     {
+        if (_canvasGroup == null)
+            return;
+
+        _canvasGroup.blocksRaycasts = false;
         _canvasGroup.DOFade(0, animDuration)
             .OnComplete(() => 
             { 
