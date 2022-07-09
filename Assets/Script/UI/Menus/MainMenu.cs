@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     {
         if (_dropdown.GetSelectedValue().ToLower().Contains("custom"))
         {
-            if (DataManager.Instance.PremiumUnlocked)
+            if (DataManager.Instance.IsIAPUnlocked( IAPItems.CUSTOM_BREATHING))
             {
                 _customFields.gameObject.SetActive(true);
                 _customFields.Show();

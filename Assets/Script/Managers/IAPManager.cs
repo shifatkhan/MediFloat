@@ -118,9 +118,14 @@ public class IAPManager : Singleton<IAPManager>, IStoreListener
             // the Action<bool> below, and ProcessPurchase if there are previously purchased products to restore.
             apple.RestoreTransactions((result) =>
             {
-                // The first of restoration. If no more responses are received on ProcessPurchase then
-                // no purchases are available to be restored.
-                DebugHelper.Log(this.GetType().Name, $"RestorePurchases continuing: {result}. If no furthur messages, no purchases available to restore.");
+                if (result)
+                {
+                    DebugHelper.Log(this.GetType().Name, $"RestorePurchases result: {result}. If no furthur messages, no purchases available to restore.");
+                }
+                else
+                {
+                    DebugHelper.Log(this.GetType().Name, $"RestorePurchases result: {result}. Could not restore.");
+                }
             });
         }
         else
