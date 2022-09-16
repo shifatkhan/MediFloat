@@ -54,8 +54,18 @@ public class FeatherMovement : MonoBehaviour
 
         _initialPos = transform.position;
 
-        _gameManager.GameStartEvent.AddListener(() => AudioTransition(_breatheOutVolume, _breathOutPitch));
-        _gameManager.GamePauseEvent.AddListener(() => AudioTransition(0, _holdPitch));
+        _gameManager.GameStartEvent.AddListener(StartAudioTransition);
+        _gameManager.GamePauseEvent.AddListener(EndAudioTransition);
+    }
+
+    private void OnDestroy()
+    {
+        _gameManager.GameStartEvent.RemoveListener(StartAudioTransition);
+        _gameManager.GamePauseEvent.RemoveListener(EndAudioTransition);
+
+        _moveToTop.Kill();
+        _moveToBot.Kill();
+        _moveToInitialPos.Kill();
     }
 
     private void Update()
@@ -72,12 +82,6 @@ public class FeatherMovement : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        _moveToTop.Kill();
-        _moveToBot.Kill();
-        _moveToInitialPos.Kill();
-    }
 
     /// <summary>
     /// Moves the feather towards the top of the screen.
@@ -140,5 +144,15 @@ public class FeatherMovement : MonoBehaviour
     {
         _audioSource.DOFade(volume, _audioTransitionTime);
         _audioSource.DOPitch(pitch, _audioTransitionTime);
+    }
+
+    public void StartAudioTransition()
+    {
+        AudioTransition(_breatheOutVolume, _breathOutPitch);
+    }
+
+    public void EndAudioTransition()
+    {
+        AudioTransition(0, _holdPitch);
     }
 }

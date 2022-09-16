@@ -48,6 +48,14 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
         // Let the game know that everything is ready to go.
         _gameManager.SetGameReady();
     }
+
+    private void OnDestroy()
+    {
+        _gameManager.RecalculateScreenEvent.RemoveListener(RecalculateMovePositions);
+
+        _moveToTop.Kill();
+        _moveToBot.Kill();
+    }
     #endregion
 
     #region Monobehavior functions
@@ -117,6 +125,8 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     /// </summary>
     public void MoveToTop()
     {
+        _moveToTop.Pause();
+
         CurrentState = MoveState.UP;
         _moveToTop.Restart();
     }
@@ -126,6 +136,8 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     /// </summary>
     public void MoveToBot()
     {
+        _moveToTop.Pause();
+
         CurrentState = MoveState.DOWN;
         _moveToBot.Restart();
     }
@@ -135,11 +147,5 @@ public class GuidingBoxMovement : Singleton<GuidingBoxMovement>
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, new Vector3(_spriteMask.bounds.size.x + margin, _spriteMask.bounds.size.y + margin, 0f));
-    }
-
-    private void OnDestroy()
-    {
-        _moveToTop.Kill();
-        _moveToBot.Kill();
     }
 }

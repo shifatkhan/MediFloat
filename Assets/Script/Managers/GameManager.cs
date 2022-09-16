@@ -60,6 +60,7 @@ public class GameManager : Singleton<GameManager>
         RecalculateScreenSizes();
     }
 
+    [NaughtyAttributes.Button]
     public void StartGame()
     {
         if (_gameState == GameState.NOT_STARTED)
@@ -85,6 +86,7 @@ public class GameManager : Singleton<GameManager>
         _gameState = GameState.STARTED;
     }
 
+    [NaughtyAttributes.Button]
     public void PauseGame()
     {
         GamePauseEvent.Invoke();
