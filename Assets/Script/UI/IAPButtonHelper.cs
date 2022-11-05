@@ -26,15 +26,7 @@ public class IAPButtonHelper : MonoBehaviour
 
     public void OnBuy()
     {
-        switch (_itemType)
-        {
-            case IAPItems.CUSTOM_BREATHING:
-                IAPManager.Instance.BuyCustomBreathing();
-                break;
-            default:
-                DebugHelper.LogError(this.GetType().Name, $"OnBuy Incorrect item type: {_itemType.ToString()}");
-                break;
-        }
+        IAPManager.Instance.BuyProduct(_itemType);
     }
 
     private IEnumerator LoadPriceCo()
@@ -42,18 +34,15 @@ public class IAPButtonHelper : MonoBehaviour
         while (!IAPManager.Instance.IsInitialized())
             yield return null;
 
-        string loadedPrice = "";
+        string loadedPrice = IAPManager.Instance.GetProductPriceFromStore(_itemType.ToString());
 
-        switch (_itemType)
+        if (string.IsNullOrEmpty(loadedPrice))
         {
-            case IAPItems.CUSTOM_BREATHING:
-                loadedPrice = IAPManager.Instance.GetProductPriceFromStore(_itemType.ToString());
-                break;
-            default:
-                DebugHelper.LogError(this.GetType().Name, $"LoadPriceCo Incorrect item type: {_itemType.ToString()}");
-                break;
+            DebugHelper.LogError(this.GetType().Name, $"LoadPriceCo Incorrect item type: {_itemType.ToString()}");
         }
-
-        _text.text = _defaultText + " " + loadedPrice;
+        else 
+        {
+            _text.text = _defaultText + " " + loadedPrice;
+        }
     }
 }

@@ -48,11 +48,6 @@ public class IAPManager : Singleton<IAPManager>, IStoreListener
         UnityPurchasing.Initialize(this, builder);
     }
 
-    public void BuyCustomBreathing()
-    {
-        BuyProductID(IAPItems.CUSTOM_BREATHING.ToString());
-    }
-
     public string GetProductPriceFromStore(string id)
     {
         if (_storeController != null && _storeController.products != null)
@@ -63,6 +58,11 @@ public class IAPManager : Singleton<IAPManager>, IStoreListener
         {
             return "";
         }
+    }
+
+    public void BuyProduct(IAPItems item)
+    {
+        BuyProductID(item.ToString());
     }
 
     private void BuyProductID(string productId)
