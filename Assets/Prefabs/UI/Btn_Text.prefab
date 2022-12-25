@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 8453440607582853388}
   - component: {fileID: 8453440607582853387}
   - component: {fileID: 8453440607582853386}
+  - component: {fileID: 9206414209113549459}
   m_Layer: 5
   m_Name: Btn_Text
   m_TagString: Untagged
@@ -253,5 +254,34 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 8453440607582853387}
   m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9206414209113549459}
+        m_TargetAssemblyTypeName: ButtonHelper, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &9206414209113549459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8453440607582853384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5072f20f69ba10447b332e95f608b20b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 8453440606837962819}
+  IsDisabled: 0
+  OnClickEvent:
     m_PersistentCalls:
       m_Calls: []

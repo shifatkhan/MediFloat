@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static GenericPopup;
 
 public class DataManager : Singleton<DataManager>
 {
@@ -24,7 +25,15 @@ public class DataManager : Singleton<DataManager>
     {
         SetIAPStatus(IAPItems.CUSTOM_BREATHING, true);
         _premiumIndicator.SetActive(true);
-        GenericPopup.Instance.Show("Premium version unlocked!");
+
+        var param = new List<GenericPopupButtonParam>();
+
+        GenericPopupButtonParam btnParam = new GenericPopupButtonParam("OK");
+        btnParam.OnClick.AddListener(() => GenericPopup.Instance.Hide());
+
+        param.Add(btnParam);
+
+        GenericPopup.Instance.Show("Premium version unlocked!", param);
     }
     
     private void SetIAPStatus(IAPItems item, bool unlocked)

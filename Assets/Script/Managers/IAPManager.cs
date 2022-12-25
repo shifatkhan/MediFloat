@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
+using static GenericPopup;
 
 /// <summary>
 /// Deriving the purchaser class from <see cref="IStoreListener"/> enables it
@@ -147,13 +148,21 @@ public class IAPManager : Singleton<IAPManager>, IStoreListener
 
     public void OnInitializeFailed(InitializationFailureReason error)
     {
-        DebugHelper.Log(this.GetType().Name, $"OnInitializeFAILED: {error.ToString()}");
+        DebugHelper.LogError(this.GetType().Name, $"OnInitializeFAILED: {error.ToString()}");
     }
 
     public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
-        DebugHelper.Log(this.GetType().Name, $"OnPurchaseFAILED for product {product.definition.id}, {failureReason.ToString()}");
-        GenericPopup.Instance.Show("Could not complete purchase at this time. Please try again later.");
+        DebugHelper.LogError(this.GetType().Name, $"OnPurchaseFAILED for product {product.definition.id}, {failureReason.ToString()}");
+
+        var param = new List<GenericPopupButtonParam>();
+
+        GenericPopupButtonParam btnParam = new GenericPopupButtonParam("OK");
+        btnParam.OnClick.AddListener(() => GenericPopup.Instance.Hide());
+
+        param.Add(btnParam);
+
+        GenericPopup.Instance.Show("Could not complete purchase at this time. Please try again later.", param);
     }
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
