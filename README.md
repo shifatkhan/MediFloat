@@ -1,10 +1,10 @@
 # [Unity] Meditation app
 
 As I was browsing through guided meditation apps, I didn't find one that would be as interactive as I hoped. Until, I played a famous game called [Celeste](https://www.celestegame.com/). At one point of the game, a character tries to calm down the Player by breathing in and out on cue:
-![](https://github.com/shifatkhan/MediFloat/tree/main/readme/celeste.gif)
+![](https://raw.githubusercontent.com/shifatkhan/MediFloat/main/readme/celeste.gif)
 
 This is a personal project to create a guided meditation application using the Unity engine. Most of the visuals were created from UI elements:
-![](https://github.com/shifatkhan/MediFloat/tree/main/readme/preview.gif)
+![](https://github.com/shifatkhan/MediFloat/blob/main/readme/preview.gif)
 
 <a name="toc"></a>
 ## Table of Contents
